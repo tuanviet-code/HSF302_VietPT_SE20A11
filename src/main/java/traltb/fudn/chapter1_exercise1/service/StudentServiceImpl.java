@@ -61,53 +61,35 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Student create(Student student) {
-        // TODO #5.1 (4 điểm):
-        //   1. Gọi validateStudent(student, false) để validate input
-        //   2. Return studentRepository.save(student)
         validateStudent(student, false);
         return studentRepository.save(student);
-        //throw new UnsupportedOperationException("TODO #5.1: implement create()");
     }
 
     @Override
     public Optional<Student> getById(Long id) {
-        // TODO #5.2 (4 điểm):
-        //   1. Nếu id null HOẶC id <= 0 → throw IllegalArgumentException("Id must be greater than 0")
-        //   2. Return studentRepository.findById(id)
         if (id == null || id <= 0) {
             throw new IllegalArgumentException("Id must be greater than 0");
         }
         return studentRepository.findById(id);
-        //throw new UnsupportedOperationException("TODO #5.2: implement getById()");
     }
 
     @Override
     public List<Student> getAll() {
-        // TODO #5.3 (3 điểm): Return studentRepository.findAll()
         return studentRepository.findAll();
-        //throw new UnsupportedOperationException("TODO #5.3: implement getAll()");
     }
 
     @Override
     public Student update(Student student) {
-        // TODO #5.4 (4 điểm):
-        //   1. Gọi validateStudent(student, true) để validate input
-        //   2. Return studentRepository.update(student)
         validateStudent(student, true);
         return studentRepository.update(student);
-        //throw new UnsupportedOperationException("TODO #5.4: implement update()");
     }
 
     @Override
     public void deleteById(Long id) {
-        // TODO #5.5 (4 điểm):
-        //   1. Nếu id null HOẶC id <= 0 → throw IllegalArgumentException("Id must be greater than 0")
-        //   2. Gọi studentRepository.deleteById(id)
         if (id == null || id <= 0) {
             throw new IllegalArgumentException("Id must be greater than 0");
         }
         studentRepository.deleteById(id);
-        //throw new UnsupportedOperationException("TODO #5.5: implement deleteById()");
     }
 
     /**
@@ -117,16 +99,6 @@ public class StudentServiceImpl implements StudentService {
      * @param requireId  nếu true → bắt buộc student.id không null và > 0 (dùng cho update)
      */
     private void validateStudent(Student student, boolean requireId) {
-        // TODO #5.6 (6 điểm): Implement validateStudent() theo các rule trong Javadoc class header.
-        //   Throw IllegalArgumentException với message CHÍNH XÁC như danh sách trong header.
-        //
-        //   Pseudo-code:
-        //   if (student == null) throw IllegalArgumentException("Student must not be null");
-        //   if (requireId && (id == null || id <= 0)) throw IllegalArgumentException("Student id is required for update");
-        //   if (isBlank(email))     throw IllegalArgumentException("Email must not be blank");
-        //   if (isBlank(password))  throw IllegalArgumentException("Password must not be blank");
-        //   if (isBlank(firstName)) throw IllegalArgumentException("First name must not be blank");
-        //   if (isBlank(lastName))  throw IllegalArgumentException("Last name must not be blank");
         if (student == null) {
             throw new IllegalArgumentException("Student must not be null");
         }
@@ -147,7 +119,6 @@ public class StudentServiceImpl implements StudentService {
         if (isBlank(student.getLastName())) {
             throw new IllegalArgumentException("Last name must not be blank");
         }
-        //throw new UnsupportedOperationException("TODO #5.6: implement validateStudent()");
     }
 
     /**

@@ -54,35 +54,26 @@ public class StudentRepositoryImpl implements StudentRepository {
     public Student save(Student student) {
         studentDAO.save(student);
         return student;
-        //throw new UnsupportedOperationException("TODO #4.1: implement save()");
     }
 
     @Override
     public Optional<Student> findById(Long id) {
-        // TODO #4.2 (2 điểm): gọi studentDAO.findById(id), wrap kết quả bằng Optional.ofNullable()
         return Optional.ofNullable(studentDAO.findById(id));
-        //throw new UnsupportedOperationException("TODO #4.2: implement findById()");
     }
 
     @Override
     public List<Student> findAll() {
-        // TODO #4.3 (2 điểm): return studentDAO.findAll()
         return studentDAO.findAll();
-        //throw new UnsupportedOperationException("TODO #4.3: implement findAll()");
     }
 
     @Override
     public Student update(Student student) {
-        // TODO #4.4 (2 điểm): gọi studentDAO.update(student), sau đó return student
         studentDAO.update(student);
         return student;
-        //throw new UnsupportedOperationException("TODO #4.4: implement update()");
     }
 
     @Override
     public void deleteById(Long id) {
-        // TODO #4.5 (2 điểm): gọi studentDAO.delete(id)
         studentDAO.delete(id);
-        //throw new UnsupportedOperationException("TODO #4.5: implement deleteById()");
     }
 }

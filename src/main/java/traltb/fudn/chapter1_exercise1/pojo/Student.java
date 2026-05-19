@@ -3,7 +3,6 @@ package traltb.fudn.chapter1_exercise1.pojo;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.awt.print.Book;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -46,49 +45,34 @@ import java.util.Set;
  *  THAM KHẢO: SlideNotes/Chapter_01_JPA_Mapping.md (mục 3-5)
  * ============================================================================
  */
-// TODO: Thêm các Lombok annotation: @Getter @Setter @NoArgsConstructor @AllArgsConstructor
-// TODO: Thêm @Entity và @Table(name = "students")
-    @Entity
-    @Table(name="students")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table(name = "students")
 public class Student {
-    @Setter
-    @Getter
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
     private Long id;
 
-    @Getter
-    @Setter
-    @Column(name = "email", nullable = false, unique = true)
+    @Column(unique = true, nullable = false)
     private String email;
 
-    @Getter
-    @Setter
-    @Column(name = "password", nullable = false)
+    @Column(nullable = false)
     private String password;
 
-    @Getter
-    @Setter
     @Column(name = "first_name", nullable = false)
     private String firstName;
 
-    @Getter
-    @Setter
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
-    @Getter
-    @Setter
     @Column(name = "marks")
     private int marks;
 
-    @Setter
-    @Getter
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "student_id")
-    private Set<Book> books;
-    public Student() {
-        this.books = new HashSet<>();
-    }
+    private Set<Book> books = new HashSet<>();
 }

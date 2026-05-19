@@ -94,7 +94,6 @@ public class StudentDAO {
         } finally {
             em.close();
         }
-        throw new UnsupportedOperationException("TODO #3.1: implement save()");
     }
 
     // ==================== READ ====================
@@ -104,13 +103,12 @@ public class StudentDAO {
      * (Không cần transaction cho read-only operation.)
      */
     public Student findById(Long id) {
-            EntityManager em = emf.createEntityManager();
-            try {
-                return em.find(Student.class, id);
-            } finally {
-                em.close();
-
-        throw new UnsupportedOperationException("TODO #3.2: implement findById()");}
+        EntityManager em = emf.createEntityManager();
+        try {
+            return em.find(Student.class, id);
+        } finally {
+            em.close();
+        }
     }
 
     /**
@@ -124,7 +122,7 @@ public class StudentDAO {
                     .getResultList();
         } finally {
             em.close();
-        throw new UnsupportedOperationException("TODO #3.3: implement findAll()");}
+        }
     }
 
     // ==================== UPDATE ====================
@@ -155,7 +153,6 @@ public class StudentDAO {
         } finally {
             em.close();
         }
-        throw new UnsupportedOperationException("TODO #3.4: implement update()");
     }
 
     // ==================== DELETE ====================
@@ -180,6 +177,5 @@ public class StudentDAO {
         } finally {
             em.close();
         }
-        throw new UnsupportedOperationException("TODO #3.5: implement delete()");
     }
 }

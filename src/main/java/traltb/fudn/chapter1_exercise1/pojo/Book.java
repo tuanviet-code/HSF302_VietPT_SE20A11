@@ -38,40 +38,28 @@ import lombok.*;
  *  THAM KHẢO: SlideNotes/Chapter_01_JPA_Mapping.md (mục 5 - Relationship)
  * ============================================================================
  */
-// TODO: Thêm các Lombok annotation: @Getter @Setter @NoArgsConstructor @AllArgsConstructor
-// TODO: Thêm @Entity và @Table(name = "books")
-    @Entity
-    @Table(name="books")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table(name = "books")
 public class Book {
 
-    @Setter
-    @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
     private Long id;
 
-    @Setter
-    @Getter
-    @Column(name = "title", nullable = false)
+    @Column(nullable = false)
     private String title;
 
-    @Setter
-    @Getter
-    @Column(name = "author", nullable = false)
+    @Column(nullable = false)
     private String author;
 
-    @Setter
-    @Getter
-    @Column(name = "isbn", nullable = false, unique = true)
+    @Column(unique = true, nullable = false)
     private String isbn;
 
-    @Setter
-    @Getter
     @ManyToOne
     @JoinColumn(name = "student_id")
     private Student student;
-
-    public Book() {}
-
 }
