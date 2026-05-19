@@ -61,7 +61,8 @@ public class Chapter1Exercise1Application {
         s.setMarks(85);
 
         Student created = studentService.create(s);
-        System.out.println("CREATE OK -> id: " + created.getId());
+        Long createdId = s.getId();
+        System.out.println("CREATE OK -> id: " + createdId);
 
 
 
@@ -69,7 +70,7 @@ public class Chapter1Exercise1Application {
         // TODO #6.2 (3 điểm): Liệt kê tất cả student
         //   - Gọi studentService.getAll()
         //   - In ra: "TOTAL STUDENTS: " + list.size()
-        List list = studentService.getAll();
+        List<Student> list = studentService.getAll();
         System.out.println("TOTAL STUDENT: " + list.size());
 
 
@@ -77,7 +78,7 @@ public class Chapter1Exercise1Application {
         // TODO #6.3 (3 điểm): Tìm student theo id vừa tạo
         //   - Gọi studentService.getById(createdId)
         //   - In ra: "FIND BY ID: " + optional.orElse(null)
-        Optional<Student> optional =  studentService.getById(s.getId());
+        Optional<Student> optional =  studentService.getById(createdId);
         System.out.println("FIND BY ID: " + optional.orElse(null));
 
 
@@ -88,14 +89,16 @@ public class Chapter1Exercise1Application {
         //   - In ra: "UPDATE OK -> firstName: ..., marks: ..."
                 s.setFirstName("Tuan");
                 s.setMarks(90);
+
+                Student updated = studentService.update(created);
                 System.out.println("UPDATE OK -> firstName: Tuan, marks: 90");
 
         // ================== 5) DELETE ==================
         // TODO #6.5 (3 điểm): Xoá student
         //   - Gọi studentService.deleteById(createdId)
         //   - In ra: "DELETE OK -> id: " + createdId
-        studentService.deleteById(s.getId());
-        System.out.println("DELETE OK -> id: " + s.getId());
+        studentService.deleteById(createdId);
+        System.out.println("DELETE OK -> id: " + createdId);
 
     }
 }

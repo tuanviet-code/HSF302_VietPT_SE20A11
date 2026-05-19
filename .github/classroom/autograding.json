@@ -1,0 +1,64 @@
+{
+  "tests": [
+    {
+      "name": "TODO #1: Student Entity (15đ)",
+      "setup": "",
+      "run": "mvn -B test -Dtest=StudentEntityTest -Dmaven.test.failure.ignore=false",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 5,
+      "points": 15
+    },
+    {
+      "name": "TODO #2: Book Entity (10đ)",
+      "setup": "",
+      "run": "mvn -B test -Dtest=BookEntityTest -Dmaven.test.failure.ignore=false",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 5,
+      "points": 10
+    },
+    {
+      "name": "TODO #3: StudentDAO (25đ)",
+      "setup": "",
+      "run": "mvn -B test -Dtest=StudentDAOTest -Dmaven.test.failure.ignore=false",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 25
+    },
+    {
+      "name": "TODO #4: StudentRepositoryImpl (10đ)",
+      "setup": "",
+      "run": "mvn -B test -Dtest=StudentRepositoryImplTest -Dmaven.test.failure.ignore=false",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 5,
+      "points": 10
+    },
+    {
+      "name": "TODO #5: StudentServiceImpl (25đ)",
+      "setup": "",
+      "run": "mvn -B test -Dtest=StudentServiceImplTest -Dmaven.test.failure.ignore=false",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 5,
+      "points": 25
+    },
+    {
+      "name": "Integration: Full CRUD flow (15đ)",
+      "setup": "",
+      "run": "mvn -B test -Dtest=CrudIntegrationTest -Dmaven.test.failure.ignore=false",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 15
+    }
+  ]
+}
