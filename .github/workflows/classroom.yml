@@ -1,0 +1,123 @@
+name: GitHub Classroom Autograding
+
+# Khi nào chạy:
+#  - Khi sinh viên push lên branch main/master
+#  - Khi tạo Pull Request
+#  - Khi trigger manual từ tab Actions
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+  workflow_dispatch:
+  repository_dispatch:
+
+# Quyền cần để GitHub Classroom Reporter post grade
+permissions:
+  checks: write
+  actions: read
+  contents: read
+  pull-requests: write
+
+jobs:
+  autograding:
+    name: Run Autograding
+    runs-on: ubuntu-latest
+    # Không chạy khi commit do bot Classroom tạo (tránh loop)
+    if: github.actor != 'github-classroom[bot]'
+
+    steps:
+      # 1. Checkout code sinh viên
+      - uses: actions/checkout@v4
+
+      # 2. Cài JDK 21 + cache Maven dependencies
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+          cache: 'maven'
+
+      # 3. Compile project (skip test ở bước này để chấm điểm riêng từng test)
+      - name: Compile
+        run: mvn -B clean compile -DskipTests
+
+      # ==================== AUTOGRADING ====================
+      # Mỗi TODO chấm điểm riêng. Nếu compile fail thì grader sẽ ghi nhận 0 điểm.
+
+      - name: "TODO #1 — Student Entity (15đ)"
+        id: todo1
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: "TODO #1: Student Entity"
+          setup-command: ""
+          command: "mvn -B test -Dtest=StudentEntityTest -Dmaven.test.failure.ignore=false"
+          timeout: 5
+          max-score: 15
+
+      - name: "TODO #2 — Book Entity (10đ)"
+        id: todo2
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: "TODO #2: Book Entity"
+          command: "mvn -B test -Dtest=BookEntityTest -Dmaven.test.failure.ignore=false"
+          timeout: 5
+          max-score: 10
+
+      - name: "TODO #3 — StudentDAO (25đ)"
+        id: todo3
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: "TODO #3: StudentDAO"
+          command: "mvn -B test -Dtest=StudentDAOTest -Dmaven.test.failure.ignore=false"
+          timeout: 10
+          max-score: 25
+
+      - name: "TODO #4 — StudentRepositoryImpl (10đ)"
+        id: todo4
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: "TODO #4: StudentRepositoryImpl"
+          command: "mvn -B test -Dtest=StudentRepositoryImplTest -Dmaven.test.failure.ignore=false"
+          timeout: 5
+          max-score: 10
+
+      - name: "TODO #5 — StudentServiceImpl (25đ)"
+        id: todo5
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: "TODO #5: StudentServiceImpl"
+          command: "mvn -B test -Dtest=StudentServiceImplTest -Dmaven.test.failure.ignore=false"
+          timeout: 5
+          max-score: 25
+
+      - name: "Integration: Full CRUD flow (15đ)"
+        id: integration
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: "Integration: Full CRUD flow (Service→Repo→DAO→H2)"
+          command: "mvn -B test -Dtest=CrudIntegrationTest -Dmaven.test.failure.ignore=false"
+          timeout: 10
+          max-score: 15
+
+      # ==================== TỔNG KẾT ĐIỂM ====================
+      - name: Autograding Reporter
+        uses: classroom-resources/autograding-grading-reporter@v1
+        env:
+          TODO1_RESULTS:        "${{steps.todo1.outputs.result}}"
+          TODO2_RESULTS:        "${{steps.todo2.outputs.result}}"
+          TODO3_RESULTS:        "${{steps.todo3.outputs.result}}"
+          TODO4_RESULTS:        "${{steps.todo4.outputs.result}}"
+          TODO5_RESULTS:        "${{steps.todo5.outputs.result}}"
+          INTEGRATION_RESULTS:  "${{steps.integration.outputs.result}}"
+        with:
+          runners: todo1,todo2,todo3,todo4,todo5,integration
+
+      # Upload Surefire reports cho debugging
+      - name: Upload test reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: surefire-reports
+          path: target/surefire-reports/
+          retention-days: 7
